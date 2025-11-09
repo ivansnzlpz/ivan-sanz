@@ -1,4 +1,4 @@
-package com.example.uem;
+package com.example;
 
 import java.util.ArrayList;
 import java.util.List;
