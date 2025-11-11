@@ -10,6 +10,14 @@ public class Calculator {
         return a * b;
     }
 
+    // Multiply integer with double
+    public double multiplyDouble(int a, double b) {
+        if (b < 0) {
+           throw new IllegalArgumentException("Negative values not allowed");
+        }
+        return a * b;
+    }
+
     // Concatenate two strings
     public String concat(String a, String b) {
         if (b != null && a != null) {

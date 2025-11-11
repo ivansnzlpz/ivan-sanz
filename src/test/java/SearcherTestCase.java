@@ -1,71 +1,79 @@
-import com.example.Searcher;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.example.Searcher;
+
 public class SearcherTestCase {
+
+    // Class encapsulate Searcher object
+
+    private Searcher searcher;
+
+    // Setup method to initialize searcher before each test
+
+    @BeforeEach
+    void setUp() {
+        searcher = new Searcher();
+    }
     
     @Test
-    // Test de busqueda
-    public void testBusqueda() {
-        Searcher search = new Searcher(); // Objeto de la clase Searcher
-        List<String> lista = List.of("manzana", "pera", "mandarinas"); // Crea lista de frutas
-        boolean resultadoExistente = search.searchWord("pera", lista);
-        Assertions.assertTrue(resultadoExistente); // Verifica que "pera" existe en la lista
-        boolean resultadoInexistente = search.searchWord("platano", lista);
-        Assertions.assertFalse(resultadoInexistente); // Verifica que "platano" no existe en la lista
+    // Search word test case
+    public void searchWordTestCase() {
+        List<String> list = List.of("apple", "pear", "orange"); // Create list of fruits
+        boolean existingResult = searcher.searchWord("pear", list);
+        Assertions.assertTrue(existingResult); // Verify that "pear" exists in the list
+        boolean InexistingResult = searcher.searchWord("banana", list);
+        Assertions.assertFalse(InexistingResult); // Verify that "banana" does not exist in the list
     }
 
     @Test
-    // Test de busqueda por índice
-    public void testBusquedaPorIndice() {
-        Searcher search = new Searcher(); // Objeto de la clase Searcher
-        List<String> lista = List.of("manzana", "pera", "mandarinas"); // Crea lista de frutas
-        String resultadoValido = search.getWordByIndex(lista, 1);
-        Assertions.assertEquals("pera", resultadoValido); // Verifica que el elemento en el índice 1 es "pera"
-        String resultadoInvalido = search.getWordByIndex(lista, 5);
-        Assertions.assertNull(resultadoInvalido); // Verifica que el índice 5 es inválido y retorna null
+    // Get word by index test case
+    public void getWordByIndexTestCase() {
+        List<String> list = List.of("apple", "pear", "orange"); // Create list of fruits
+        String validResult = searcher.getWordByIndex(list, 1);
+        Assertions.assertEquals("pear", validResult); // Verify that index 1 returns "pear"
+        String invalidResult = searcher.getWordByIndex(list, 5);
+        Assertions.assertNull(invalidResult); // Verify that an invalid index returns null
     }
 
     @Test
-    // Test de busqueda por prefijo
-    public void testBusquedaPorPrefijo() {
-        Searcher search = new Searcher(); // Objeto de la clase Searcher
-        List<String> lista = List.of("manzana", "pera", "mandarinas", "mango"); // Crea lista de frutas
-        List<String> resultados = search.searchByPrefix("ma", lista);
-        List<String> esperados = List.of("manzana", "mandarinas", "mango"); // Creamos lista con los resultados esperados
-        Assertions.assertEquals(esperados, resultados); // Verifica que los resultados coinciden con los resultados esperados
-        Assertions.assertFalse(resultados.contains("pera")); // Verifica que "pera" no está en los resultados
+    // Search by prefix test case
+    public void searchByPrefixTestCase() {
+        List<String> list = List.of("apple", "pear", "orange", "peach"); // Create list of fruits
+        List<String> resultsList = searcher.searchByPrefix("pe", list);
+        List<String> expectedList = List.of("pear", "peach"); // Create list with expected results
+        Assertions.assertEquals(expectedList, resultsList); // Verify that results match expected results
+        Assertions.assertFalse(resultsList.contains("apple")); // Verify that "apple" is not in the results
     }
 
     @Test
-    // Test de filtrado por palabra clave
-    public void testFiltradoPorPalabraClave() {
-        Searcher search = new Searcher(); // Objeto de la clase Searcher
-        List<String> lista = List.of("manzana roja", "pera verde", "mandarinas dulces", "mango amarillo"); // Crea lista de frutas con claves
-        List<String> resultados = search.filterByKeyword("roja", lista);
-        List<String> esperados = List.of("manzana roja"); // Creamos lista con los resultados esperados
-        Assertions.assertEquals(esperados, resultados); // Verifica que los resultados coinciden con los resultados esperados
-        List<String> resultadosNoExiste = search.filterByKeyword("azul", lista);
-        Assertions.assertTrue(resultadosNoExiste.isEmpty()); // Verifica que no hay resultados para la palabra clave "azul"
+    // Filter by keyword test case
+    public void filterByKeywordTestCase() {
+        List<String> list = List.of("red apple", "green pear", "sweet oranges", "yellow banana"); // Create list of fruits with differents keys
+        List<String> resultsList = searcher.filterByKeyword("red", list);
+        List<String> expectedList = List.of("red apple"); // Create list with expected results
+        Assertions.assertEquals(expectedList, resultsList); // Verify that results match expected results
+        List<String> invalidResultList = searcher.filterByKeyword("blue", list);
+        Assertions.assertTrue(invalidResultList.isEmpty()); // Verify that no results are found for a non-existing keyword
     }
 
     @Test
-    // Test de busqueda de frase exacta
-    public void testBusquedaFraseExacta() {
-        Searcher search = new Searcher(); // Objeto de la clase Searcher
-        List<String> lista = List.of("manzana", "pera", "mandarinas"); // Crea lista de frutas
-        // Caso 1: Buscar la primera frase
-        boolean resultadoPrimero = search.searchExactPhrase("manzana", lista);
-        Assertions.assertTrue(resultadoPrimero); // Verifica que "manzana" existe en la lista
-        // Caso 2: Buscar una frase que no sea el primero
-        boolean resultadoSegundo = search.searchExactPhrase("pera", lista);
-        Assertions.assertFalse(resultadoSegundo); // Verifica que "pera" no es el primero en la lista
-        // Caso 3: Buscar una frase que no existe
-        boolean resultadoInexistente = search.searchExactPhrase("platano", lista);
-        Assertions.assertFalse(resultadoInexistente); // Verifica que "platano" no existe
-        /*Conclusión: El método solo verifica el primer elemento de la lista debido a que si no coincide
-        con el primer elemento dentro del bucle debido al return devuelve el booleano como falso.*/
+    // Search exact phrase test case
+    public void searchExactPhraseTestCase() {
+        List<String> list = List.of("apple", "pear", "orange"); // Create list of fruits
+        // Case 1: Search for the first phrase
+        boolean firstResult = searcher.searchExactPhrase("apple", list);
+        Assertions.assertTrue(firstResult); // Verify that apple exists in the list
+        // Case 2: Search for a phrase that is not the first
+        boolean secondResult = searcher.searchExactPhrase("pear", list);
+        Assertions.assertFalse(secondResult); // Verify that pear is not found due to method logic
+        // Case 3: Search for a non-existing phrase
+        boolean invalidResult = searcher.searchExactPhrase("banana", list);
+        Assertions.assertFalse(invalidResult); // Verify that banana does not exist in the list
+        /*Conclusion: The method only verifies the first element in the list because if it doesn´t match
+        the first element in the loop, the return statement returns the boolean value as false*/
     }
 }
