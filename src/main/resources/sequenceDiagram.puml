@@ -1,0 +1,29 @@
+@startuml SequenceDiagram
+
+actor Usuario
+participant "BookingView" as View
+participant "BookingController" as Controller
+
+Usuario -> View: introduce Booking ID\ny pulsa "Search"
+activate View
+
+View -> Controller: searchBooking()
+activate Controller
+
+Controller -> View: getSearchInput()
+View --> Controller: bookingId
+
+Controller -> Controller: recorre bookings buscando\nid.equalsIgnoreCase(bookingId)
+
+alt reserva encontrada
+    Controller -> View: displayBooking(booking)
+    View -> View: resultArea.setText(booking.toString())
+else reserva no encontrada
+    Controller -> View: showMessage("Booking not found")
+    View -> Usuario: muestra JOptionPane
+end
+
+deactivate Controller
+deactivate View
+
+@enduml

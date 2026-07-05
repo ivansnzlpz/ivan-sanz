@@ -1,0 +1,16 @@
+@startuml UseCaseDiagram
+
+left to right direction
+
+actor Usuario
+
+rectangle "Aplicación de Reservas" {
+    usecase "Buscar reserva" as UC1
+    usecase "Visualizar información\nde la reserva" as UC2
+}
+
+Usuario --> UC1
+Usuario --> UC2
+UC1 ..> UC2 : <<include>>
+
+@enduml

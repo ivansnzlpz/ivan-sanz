@@ -1,0 +1,65 @@
+@startuml ClassDiagram
+
+class Booking {
+    -id: String
+    -services: List<Service>
+    +Booking()
+    +Booking(id: String, services: List<Service>)
+    +getId(): String
+    +setId(id: String): void
+    +getServices(): List<Service>
+    +setServices(services: List<Service>): void
+    +getTotalCost(): double
+    +getTotalWithDiscount(): double
+    +toString(): String
+}
+
+class Service {
+    -name: String
+    -quantity: int
+    -unitPrice: double
+    -discount: double
+    +Service()
+    +Service(name: String, quantity: int, unitPrice: double, discount: double)
+    +getName(): String
+    +setName(name: String): void
+    +getQuantity(): int
+    +setQuantity(quantity: int): void
+    +getUnitPrice(): double
+    +setUnitPrice(unitPrice: double): void
+    +getDiscount(): double
+    +setDiscount(discount: double): void
+    +getTotalCost(): double
+    +getDiscountedCost(): double
+    +toString(): String
+}
+
+class BookingController {
+    -view: BookingView
+    -bookings: List<Booking>
+    +BookingController(view: BookingView, bookings: List<Booking>)
+    -initController(): void
+    -loadBookingIds(): void
+    -searchBooking(): void
+}
+
+class BookingView {
+    -searchField: JTextField
+    -searchButton: JButton
+    -resultArea: JTextArea
+    -bookingList: JList<String>
+    +BookingView()
+    -initComponents(): void
+    +getSearchInput(): String
+    +setSearchButtonListener(listener: ActionListener): void
+    +setBookingList(listModel: DefaultListModel<String>): void
+    +displayBooking(booking: Booking): void
+    +showMessage(message: String): void
+}
+
+Booking "1" *-- "0..*" Service : contiene
+BookingController "1" --> "1" BookingView : controla
+BookingController "1" --> "0..*" Booking : gestiona
+BookingView ..> Booking : usa
+
+@enduml
