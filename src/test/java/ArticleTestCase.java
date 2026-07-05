@@ -27,7 +27,7 @@ public class ArticleTestCase {
     }
 
     @Test
-    // Test setters
+    // Test set name
     public void setNameTestCase() {
         article.setName("Smartphone");
         Assertions.assertEquals("Smartphone", article.getName()); // Verify name updated
