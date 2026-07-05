@@ -76,15 +76,46 @@ Para ejecutar la aplicación, usa el siguiente comando:
 mvn exec:java
 ```
 
-## Contribución
+# Booking App
 
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
-- Haz un fork del repositorio.
-- Crea una nueva rama (git checkout -b feature-nueva-funcionalidad).
-- Realiza tus cambios y haz commit (git commit -am 'Agregué nueva funcionalidad').
-- Empuja los cambios a tu fork (git push origin feature-nueva-funcionalidad).
-- Crea un pull request.
+Aplicación de gestión de reservas de viaje desarrollada en Java con Maven, siguiendo el patrón MVC (Modelo-Vista-Controlador) y una interfaz gráfica con Java Swing.
 
-## Licencia
+## Funcionalidades
 
-Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
+- **Listado de reservas**: al arrancar, la ventana principal muestra en la izquierda los IDs de todas las reservas cargadas desde `bookings.json`.
+- **Búsqueda por ID**: escribe un Booking ID y pulsa "Search" para ver sus servicios y el coste total, con descuento aplicado, en euros y en dólares.
+- **Conversión de divisas en tiempo real**: el tipo de cambio EUR→USD se obtiene en cada consulta desde la API pública [open.er-api.com](https://www.exchangerate-api.com/docs/free) (`GET https://open.er-api.com/v6/latest/EUR`), sin necesidad de clave de API. Si la API no responde, se usa un valor de referencia interno para que la aplicación no se bloquee.
+- **Crear reserva**: botón "Nueva reserva" abre un formulario para introducir el ID y añadir uno o varios servicios (nombre, cantidad, precio unitario, descuento). Se valida que el ID no exista ya. Al guardar, se sobrescribe `bookings.json` y se actualiza la lista en memoria.
+- **Eliminar reserva**: escribe el ID en el campo de búsqueda y pulsa "Eliminar reserva". Se elimina de la lista en memoria y se sobrescribe `bookings.json`.
+- Los cambios de creación/eliminación persisten entre reinicios de la aplicación.
+
+## Estructura del proyecto
+
+practica/
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/
+│   │   │   ├── Main.java
+│   │   │   ├── MathUtils.java
+│   │   │   ├── TextAnalyzer.java
+│   │   │   ├── CurrencyConverter.java
+│   │   │   ├── BookingRepository.java
+│   │   │   ├── model/       (Booking, Service)
+│   │   │   ├── view/        (BookingView, BookingFormDialog)
+│   │   │   └── controller/  (BookingController)
+│   │   └── resources/
+│   │       ├── bookings.json
+│   │       ├── logback.xml
+│   │       ├── images/banner.png
+│   │       └── *.puml (diagramas UML)
+│   └── test/java/           (MathUtilsTestCase, TextAnalyzerTestCase, ServiceTestCase, BookingTestCase)
+├── pom.xml
+└── README.md
+
+
+
+## Requisitos
+
+- Java 17+
+- Maven
+- Conexión a internet (para el tipo de cambio en tiempo real)

@@ -43,5 +43,9 @@
         "discount": 20.0
       }
     ]
+  },
+  {
+    "id": "BKG-004",
+    "services": []
   }
 ]
