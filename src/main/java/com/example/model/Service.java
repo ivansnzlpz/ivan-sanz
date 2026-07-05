@@ -1,6 +1,7 @@
 package com.example.model;
 
 import com.example.MathUtils;
+import com.google.gson.annotations.SerializedName;
 
 public class Service {
 
@@ -8,8 +9,14 @@ public class Service {
 
     private String name;
     private int quantity;
+    @SerializedName("price")
     private double unitPrice;
     private double discount;
+
+    // Empty constructor (required by Gson to instantiate the object)
+
+    public Service() {
+    }
 
     // Constructor
 

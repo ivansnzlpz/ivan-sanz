@@ -1,0 +1,47 @@
+[
+  {
+    "id": "BKG-001",
+    "services": [
+      {
+        "name": "Hotel",
+        "quantity": 3,
+        "price": 80.0,
+        "discount": 10.0
+      },
+      {
+        "name": "Flight",
+        "quantity": 1,
+        "price": 250.0,
+        "discount": 5.0
+      }
+    ]
+  },
+  {
+    "id": "BKG-002",
+    "services": [
+      {
+        "name": "Car Rental",
+        "quantity": 5,
+        "price": 40.0,
+        "discount": 0.0
+      },
+      {
+        "name": "Excursion",
+        "quantity": 2,
+        "price": 60.0,
+        "discount": 15.0
+      }
+    ]
+  },
+  {
+    "id": "BKG-003",
+    "services": [
+      {
+        "name": "Hotel",
+        "quantity": 1,
+        "price": 120.0,
+        "discount": 20.0
+      }
+    ]
+  }
+]

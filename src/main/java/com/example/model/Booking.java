@@ -11,6 +11,11 @@ public class Booking {
     private String id;
     private List<Service> services;
 
+    // Empty constructor (required by Gson to instantiate the object)
+
+    public Booking() {
+    }
+
     // Constructor
 
     public Booking(String id, List<Service> services) {
