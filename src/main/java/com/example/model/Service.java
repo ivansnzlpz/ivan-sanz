@@ -77,4 +77,14 @@ public class Service {
     public double getDiscountedCost() {
         return MathUtils.applyDiscount(getTotalCost(), discount);
     }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", discount=" + discount +
+                '}';
+    }
 }

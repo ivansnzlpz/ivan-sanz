@@ -1,6 +1,8 @@
 package com.example;
 
+import com.example.controller.BookingController;
 import com.example.model.Booking;
+import com.example.view.BookingView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -23,6 +25,10 @@ public class Main {
         for (Booking booking : bookings) {
             log.debug("Loaded booking: {}", booking.getId());
         }
+
+        // Initialize MVC
+        BookingView view = new BookingView();
+        new BookingController(view, bookings);
     }
 
     // Reads bookings.json from the classpath (src/main/resources) and parses it into a list of Booking objects
